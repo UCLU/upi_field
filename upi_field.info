@@ -1,0 +1,4 @@
+name = UPI Field
+description = Provides a UPI (UCL Personal Identifier) field type.
+core = 7.x
+version = 7.x-0.1

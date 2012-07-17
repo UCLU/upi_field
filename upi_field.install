@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Defines schema for UPI fields.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function upi_field_field_schema($field) {
+  return array(
+    'columns' => array(
+      // The column name must be 'value' as we're reusing the text_textfield widget.
+      'value' => array(
+        'description' => 'UPI (UCL Personal Identifier).',
+        'type' => 'varchar',
+        'length' => 7,
+        'not null' => FALSE,
+      ),
+    ),
+    'indexes' => array(
+      'upi' => array('value'),
+    ),
+  );
+}
