@@ -106,3 +106,38 @@ function upi_field_field_formatter_view($entity_type, $entity, $field, $instance
   }
   return $element;
 }
+
+
+/**
+ * Implements hook_webform_validation_validators().
+ * 
+ * This integrates with the Webform Validation module.
+ */
+function upi_field_webform_validation_validators() {
+  return array(
+    'upi' => array(
+      'name' => 'UPI (UCL Personal Identifier)',
+      'component_types' => array(
+        'textfield',
+        'textarea',
+        'hidden',
+      ),
+      'description' => t('Verifies that a user-entered value is a valid UCL Personal Identifier.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_webform_validation_validate().
+ */
+function upi_field_webform_validation_validate($validator_name, $items, $components, $rule) {
+  if ($validator_name == 'upi' && $items) {
+    $errors = array();
+    foreach ($items as $key => $value) {
+      if (!upi_field_validate_upi($value)) {
+        $errors[$key] = t('%value is not a valid UPI.', array('%value' => $value));
+      }
+    }
+    return $errors;
+  }
+}
