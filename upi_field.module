@@ -110,7 +110,7 @@ function upi_field_field_formatter_view($entity_type, $entity, $field, $instance
 
 /**
  * Implements hook_webform_validation_validators().
- * 
+ *
  * This integrates with the Webform Validation module.
  */
 function upi_field_webform_validation_validators() {
@@ -134,7 +134,7 @@ function upi_field_webform_validation_validate($validator_name, $items, $compone
   if ($validator_name == 'upi' && $items) {
     $errors = array();
     foreach ($items as $key => $value) {
-      if (!upi_field_validate_upi($value)) {
+      if (!empty($value) && !upi_field_validate_upi($value)) {
         $errors[$key] = t('%value is not a valid UPI.', array('%value' => $value));
       }
     }
